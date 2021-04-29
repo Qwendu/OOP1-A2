@@ -1,32 +1,30 @@
-# Prerequisites
+## IDE
+.idea/
+.vscode
+CMakeLists.txt
+
+
+## build files
+build/
+tmp/
+valgrind_logs/
+cmake-build-*/
+result.*
+RESULT.*
+
+oop1
 *.d
-
-# Compiled Object files
-*.slo
-*.lo
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
 *.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
 *.out
-*.app
+*.exe
+
+
+## OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
