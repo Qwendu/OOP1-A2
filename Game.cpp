@@ -64,6 +64,7 @@ void Field::randomTiles(std::vector<Tile*> tile_ptr_vector){
 		ptr = tile_ptr_vector.at(index);
 		tile_ptr_vector.erase(tile_ptr_vector.begin() + index);
 		tile_ptr_vector.shrink_to_fit();
+		tile_ptr_array_.at(i) = ptr;
 	}
 
 }
