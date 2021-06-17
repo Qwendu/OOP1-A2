@@ -37,6 +37,8 @@ struct Treasure{
 	
 	Treasure(int id);
 
+	std::string getTreasureString();
+
 };
 
 

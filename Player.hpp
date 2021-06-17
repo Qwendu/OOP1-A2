@@ -11,7 +11,7 @@ struct Player{
 	std::vector <Treasure *> treasures_;
 
 	Player();
-
+	std::string getColorString();
 };
 
 

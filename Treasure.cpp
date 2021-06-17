@@ -6,3 +6,10 @@ Treasure::Treasure(int id): id_(id){
 		name_ = treasure_names_.at(id_);
 	}
 };
+
+
+std::string Treasure::getTreasureString(){
+	std::string treasure_string = "T";
+	if(id_ < 10) treasure_string += " ";
+	return treasure_string + std::to_string(id_);
+};
