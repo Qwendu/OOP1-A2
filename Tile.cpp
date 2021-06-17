@@ -56,7 +56,7 @@ std::string Tile::rebuildString(std::string line){
 	std::string converted_line;
 	for(size_t i = 0; i < line.size(); i++){
 		if(line.at(i) == '#')
-			converted_line += "#";
+			converted_line += "█";
 		else
 			converted_line += line.at(i);
 	}
