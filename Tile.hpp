@@ -11,9 +11,6 @@
 struct Tile{
 	enum ROTATION {DEG0 = 0, DEG90, DEG180, DEG270};
 	enum TYPE {T = 0, L, I, O, U, X};
-	const std::array<std::string, 4> setRepresentation();
-
-
 	std::array<std::string, 4> representation_;
 	TYPE t_;
 	ROTATION r_;	
@@ -22,6 +19,7 @@ struct Tile{
 	Tile(TYPE, ROTATION);
 	Tile(TYPE, ROTATION, int);
 	Tile();
+	std::array<std::string, 4> setRepresentation();
 	void printLine(int);
 	void rebuildStringTreasure(std::string&);
 	void rebuildStringPlayer(std::string&);

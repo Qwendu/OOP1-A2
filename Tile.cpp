@@ -8,18 +8,13 @@ Tile::Tile(): my_treasure_(0){
 
 
 Tile::Tile(TYPE type, ROTATION rotation): t_(type), r_(rotation){
-	
+	representation_ = setRepresentation();
 };
 
 
 Tile::Tile(TYPE type, ROTATION rotation, int treasure_id):t_(type), r_(rotation), my_treasure_(new Treasure(treasure_id)){
-
-
+	representation_ = setRepresentation();
 };
-
-void Tile::setRepresentation(){
-	
-}
 
 void Tile::printLine(int line_idx){
 	std::string line_to_print = representation_.at((size_t)r_).substr(line_idx * 9, line_idx * 9 + 9);
@@ -61,7 +56,7 @@ std::string Tile::rebuildString(std::string line){
 	std::string converted_line;
 	for(size_t i = 0; i < line.size(); i++){
 		if(line.at(i) == '#')
-			converted_line += "█";
+			converted_line += "#";
 		else
 			converted_line += line.at(i);
 	}
@@ -70,15 +65,47 @@ std::string Tile::rebuildString(std::string line){
 
 std::array<std::string, 4> Tile::setRepresentation(){
 	switch(t_){
+		case I:
+			return {
+			"##     ####     ####     ####     ####     ##"
+			,"#########                           #########"
+			,"##     ####     ####     ####     ####     ##"
+			,"#########                           #########"
+			};
+		case L:
+			return {
+			"##     ####       ##       ##       #########"
+			,"##     ##       ##       ##       ###########"
+			,"#########       ##       ##       ####     ##"
+			,"###########       ##       ##       ##     ##"
+			};
 		case T:
 			return {
-			
-
-
+			"##     ####       ##       ##       ##     ##"
+			,"##     ##                           #########"
+			,"##     ##       ##       ##       ####     ##"
+			,"#########                           ##     ##"
 			};
-
-
-
-
+		case X:
+			return {
+			"##     ####     ####     ####     ####     ##"
+			,"#########                           #########"
+			,"##     ####     ####     ####     ####     ##"
+			,"#########                           #########"
+			};
+		case O:
+			return {
+			"##     ####     ####     ####     ####     ##"
+			,"#########                           #########"
+			,"##     ####     ####     ####     ####     ##"
+			,"#########                           #########"
+			};
+		case U:
+			return {
+			"##     ####     ####     ####     ####     ##"
+			,"#########                           #########"
+			,"##     ####     ####     ####     ####     ##"
+			,"#########                           #########"
+			};
 	}
 };
