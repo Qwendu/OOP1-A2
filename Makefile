@@ -1,5 +1,5 @@
 CXX           := clang++
-CXXFLAGS      := -Wall -Wextra -pedantic -std=c++17 -g -c -o
+CXXFLAGS      := -Wall -Wextra -Wconditional-uninitialized -Wsometimes-uninitialized -pedantic -std=c++17 -g -c -o
 ASSIGNMENT    := oop1
 
 BUILDDIR      := build

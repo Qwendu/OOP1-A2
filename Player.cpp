@@ -1,7 +1,8 @@
 #include "Player.hpp"
 
-Player::Player(){
 
+#include <iostream>
+Player::Player(COLOR c): c_(c){
 
 
 };
@@ -19,4 +20,8 @@ std::string Player::getColorString(){
 			return "B";
 
 	}
+};
+
+void Player::collectTreasure(){
+	collected_treasures_++;
 };

@@ -6,12 +6,15 @@
 
 
 struct Player{
-	enum Color {RED = 0, YELLOW, GREEN, BLUE};
-	Color c_;
+	enum COLOR {RED = 0, YELLOW, GREEN, BLUE};
+	COLOR c_;
+	int collected_treasures_ = 0;
 	std::vector <Treasure *> treasures_;
 
-	Player();
+	Player(COLOR);
 	std::string getColorString();
+
+	void collectTreasure();
 };
 
 

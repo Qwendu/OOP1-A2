@@ -9,18 +9,27 @@ Tile::Tile(): my_treasure_(0){
 
 Tile::Tile(TYPE type, ROTATION rotation): t_(type), r_(rotation){
 	representation_ = setRepresentation();
+	players_ = {nullptr, nullptr, nullptr, nullptr};
+
 };
 
 
-Tile::Tile(TYPE type, ROTATION rotation, int treasure_id):t_(type), r_(rotation), my_treasure_(new Treasure(treasure_id)){
+Tile::Tile(TYPE type, ROTATION rotation, int treasure_id):t_(type), r_(rotation), my_treasure_(new (treasure_allocator_.allocate(sizeof(Treasure)).ptr) Treasure(treasure_id)){
 	representation_ = setRepresentation();
+	players_ = {nullptr, nullptr, nullptr, nullptr};
+};
+
+Tile::Tile(TYPE type, ROTATION rotation, Player* og_player): t_(type), r_(rotation),ogp_(og_player){
+	representation_ = setRepresentation();
+	players_ = {nullptr, nullptr, nullptr, nullptr};
 };
 
 void Tile::printLine(int line_idx){
-	std::string line_to_print = representation_.at((size_t)r_).substr(line_idx * 9, line_idx * 9 + 9);
+	std::string line_to_print = representation_.at((size_t)r_).substr(line_idx * 9,  9);
 	switch(line_idx){
 	case 2:
-		rebuildStringTreasure(line_to_print);
+		if(ogp_ != nullptr) rebuildStringPlayerStart(line_to_print);
+		else if(my_treasure_ != nullptr) rebuildStringTreasure(line_to_print);
 		break;
 	case 3:
 		rebuildStringPlayer(line_to_print);
@@ -28,7 +37,7 @@ void Tile::printLine(int line_idx){
 	case 4:
 		rebuildString(line_to_print);
 	}
-	std::cout << line_to_print << std::flush;
+	std::cout << rebuildString(line_to_print) << std::flush;
 };
 
 void Tile::rebuildStringTreasure(std::string& line){
@@ -38,17 +47,32 @@ void Tile::rebuildStringTreasure(std::string& line){
 	}else{
 		line.replace(3,3, my_treasure_->getTreasureString());
 	}
-	line = rebuildString(line);
 };
 
 void Tile::rebuildStringPlayer(std::string& line){
-	std::string players = "P";
+	//count players
+	size_t p_count = 0;
+	for(auto player : players_){
+		if(player != nullptr) p_count++;
+	}
+	std::string players = " P";
+	if(p_count == 4){
+		players = "P";
+	}
+	if(p_count == 0){
+		line.replace(2 ,5 , "     ");
+		return;
+	}
 	for(size_t i = 0; i < players_.size(); i++){
 		if(players_.at(i))
 			players += players_.at(i)->getColorString();
 	}
-	line.replace(2 + 1*(players.size() > 4), players.size(), players);
-	line = rebuildString(line);
+	line.replace(2, players.size(), players);
+};
+
+void Tile::rebuildStringPlayerStart(std::string& line){
+	if(ogp_ == nullptr) return;
+	line.replace(3,3, "(" + ogp_->getColorString() + ")");
 };
 
 
@@ -108,4 +132,54 @@ std::array<std::string, 4> Tile::setRepresentation(){
 			,"#########                           #########"
 			};
 	}
+};
+
+bool Tile::hasPlayer(Player* player){
+	for(Player* p : players_){
+		if(p == player) return true;
+	}
+	return false;
+};
+
+
+void Tile::addPlayer(Player* player){
+	players_.at((size_t)player->c_) = player;
+}
+
+void Tile::removePlayer(Player* player){
+	players_.at((size_t)player->c_) = nullptr;
+}
+
+
+Tile::ROTATION Tile::flipped(Tile::ROTATION r){
+	switch(r){
+	case DEG0:
+		return DEG180;
+	case DEG90:
+		return DEG270;
+	case DEG180:
+		return DEG0;
+	case DEG270:
+		return DEG90;
+	}
+};
+
+Tile::ROTATION Tile::rotatedLeft(Tile::ROTATION r, int i){
+	int rotation = (int) r;
+	for(int iter = 0; iter < i; iter++){
+		rotation++;
+		if(rotation > 3) rotation = 0;
+		if(rotation < 0) rotation = 3;
+	}
+	return (ROTATION) rotation;
+};
+
+Tile::ROTATION Tile::rotatedRight(Tile::ROTATION r, int i){
+	int rotation = (int) r;
+	for(int iter = 0; iter < i; iter++){
+		rotation--;
+		if(rotation > 3) rotation = 0;
+		if(rotation < 0) rotation = 3;
+	}
+	return (ROTATION) rotation;
 };
