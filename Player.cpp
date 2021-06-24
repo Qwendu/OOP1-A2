@@ -25,3 +25,8 @@ std::string Player::getColorString(){
 void Player::collectTreasure(){
 	collected_treasures_++;
 };
+
+
+void Player::giveTreasure(Treasure* treasure_to_add_to_vector){
+	treasures_.push_back(treasure_to_add_to_vector);	
+};

@@ -15,6 +15,7 @@ struct Player{
 	std::string getColorString();
 
 	void collectTreasure();
+	void giveTreasure(Treasure*);
 };
 
 

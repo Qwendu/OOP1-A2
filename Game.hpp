@@ -11,11 +11,11 @@
 
 struct Game{
 	enum InputCommand {};
-	Stacklocator<sizeof(Player) * 4> game_allocator;
+	Stacklocator<sizeof(Player) * 4 + sizeof(Treasure) * 24> game_allocator_;
 	Oop::Random& random_;
 	Field game_field_;	
 	std::array<Player*, 4> players_ = {};
-	int number_of_players = 2;
+	int number_of_players_ = 4;
 	Game();
 	int start();
 	int loop();

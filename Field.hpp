@@ -1,5 +1,5 @@
-#ifndef H_GAME
-#define H_GAME
+#ifndef H_FIELD
+#define H_FIELD
 
 #include <array>
 #include <vector>
@@ -7,7 +7,6 @@
 #include "Tile.hpp"
 #include "qb.hpp"
 #include "Random.hpp"
-#include "Game.hpp"
 
 struct Field{
 	const static inline int WIDTH = 7;
@@ -15,9 +14,7 @@ struct Field{
 	Stacklocator<sizeof(Tile) * (WIDTH * HEIGHT + 1)> field_allocator_;
 	std::array<Tile*, (WIDTH * HEIGHT + 1)> tile_ptr_array_ = {};
 	Oop::Random& random_;
-	Game& game_;
-	Field(Oop::Random&, Game& game);
-
+	Field(Oop::Random&);
 	void initializeDefaultTiles(Blk&);
 	void randomTiles(std::vector<Tile* >);
 	void printField();

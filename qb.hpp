@@ -4,12 +4,14 @@
 #include <stdlib.h>
 
 //--------------------------------------------------------------------------------------------------
-// Defines
+// Macros
 //
 #define LIKELY(x) __builtin_expect(!!(x), 1)
 #define UNLIKELY(x) __builtin_expect(!!(x), 0)
 
 
+#define PRINT_DEBUG std::cerr << __FILE__ << "::>" << __PRETTY_FUNCTION__ << "::>" << __LINE__ << std::endl;
+#define PRINT_DEBUG_C(x) std::cerr << __FILE__ << "::>" << __PRETTY_FUNCTION__ << "::>" << __LINE__ << std::endl << (x) << std::endl;
 
 
 

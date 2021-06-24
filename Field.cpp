@@ -6,9 +6,8 @@
 #include <iostream>
 #include <vector>
 
-Field::Field(Oop::Random& random, Game& game) 
-	:	random_(random)
-		, game_(game){
+Field::Field(Oop::Random& random) 
+	:	random_(random){
 	Blk mem_block = field_allocator_.allocate(sizeof(Tile) * 16);
 	initializeDefaultTiles(mem_block);
 	randomTiles(createTileVector());
